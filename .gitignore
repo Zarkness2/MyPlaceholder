@@ -12,4 +12,4 @@ dependency-reduced-pom.xml
 
 # OCULTAR el código Java pero dejar Resources
 # (Aunque lo normal es subir el código, si quieres ocultarlo esta es la ruta)
-src/main/java
+# src/main/java

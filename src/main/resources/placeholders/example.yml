@@ -1,0 +1,678 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                    MyPlaceholder - Full Example File                        ║
+# ║                                                                              ║
+# ║  This file demonstrates EVERY placeholder type and configuration option.    ║
+# ║  Use it as a reference when creating your own placeholder files.             ║
+# ║                                                                              ║
+# ║  Supported types: STRING, COLORED_TEXT, RANDOM, MATH, REQUIREMENT,          ║
+# ║                   PROGRESS, ANIMATION                                        ║
+# ║                                                                              ║
+# ║  Built-in converters (no YML needed, use directly as placeholders):          ║
+# ║    %mp_roman_14%           → XIV                                             ║
+# ║    %mp_smallcaps_hello%    → ʜᴇʟʟᴏ                                          ║
+# ║    %mp_superscript_hello%  → ʰᵉˡˡᵒ                                          ║
+# ║    %mp_circled_hello%      → ⓗⓔⓛⓛⓞ                                         ║
+# ║    %mp_fullwidth_hello%    → ｈｅｌｌｏ                                         ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# Whether this file is loaded by the plugin.
+# Can be toggled in-game with: /mp folder example enable|disable
+enabled: true
+
+placeholders:
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  STRING
+  #  The simplest type. Returns a plain text value.
+  #  Usage: %mp_<id>%
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Basic static string
+  example-string:
+    value: "This is a plain string placeholder."
+
+  # String with positional arguments {0}, {1}, ...
+  # Arguments are passed after the first underscore, separated by ::
+  # Usage: %mp_example-args_Hello::World%  →  "Hello, World!"
+  example-args:
+    value: "{0}, {1}!"
+
+  # String with multiple arguments
+  # Usage: %mp_example-welcome_Steve::VIP::42%  →  "Welcome Steve! Rank: VIP | Points: 42"
+  example-welcome:
+    value: "Welcome {0}! Rank: {1} | Points: {2}"
+
+  # Locked string — cannot be edited in-game with /mp config
+  # Only editable by modifying this file directly
+  example-locked:
+    value: "This value cannot be changed in-game."
+    locked: true
+
+  # String with text decorations
+  # Available flags: bold, italic, underline, strikethrough, obfuscate
+  # All default to false — only add the ones you need
+  example-bold:
+    value: "This text is bold."
+    bold: true
+
+  example-italic:
+    value: "This text is italic."
+    italic: true
+
+  example-decorated:
+    value: "Bold and italic text."
+    bold: true
+    italic: true
+
+  example-strikethrough:
+    value: "This text is crossed out."
+    strikethrough: true
+
+  example-underline:
+    value: "This text is underlined."
+    underline: true
+
+  # Obfuscate makes text appear as random characters (Matrix effect)
+  example-obfuscate:
+    value: "SECRET"
+    obfuscate: true
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  COLORED_TEXT
+  #  Supports all Minecraft color formats + custom gradients.
+  #
+  #  Supported color formats:
+  #    Legacy codes:   &6, &a, &c, &l, &r  (& or § both work)
+  #    Hex legacy:     &#FF0000  or  #FF0000  (with §x internally)
+  #    MiniMessage:    <red>, <#FF0000>, <bold>
+  #    Console:        §6, §x§F§F§0§0§0§0
+  #
+  #  Gradient syntax (use : as separator):
+  #    Two colors:     #FF0000:#0000FF Text here
+  #    Multi-stop:     #FF0000:#00FF00:#0000FF Text here
+  #    Mixed formats:  &#FF0000:#0000FF Text here
+  #    Nested PAPI:    %mp_color-a%:%mp_color-b% Text here
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Legacy color code
+  example-legacy-color:
+    value: "&6This text is gold colored."
+    type: COLORED_TEXT
+
+  # Hex color (&#RRGGBB format)
+  example-hex-color:
+    value: "&#FF5500This text is orange."
+    type: COLORED_TEXT
+
+  # Hex color (plain #RRGGBB format)
+  example-hex-plain:
+    value: "#00FF88This text is mint green."
+    type: COLORED_TEXT
+
+  # MiniMessage format
+  example-minimessage:
+    value: "<red>Red text via <bold>MiniMessage</bold></red>"
+    type: COLORED_TEXT
+
+  # Two-color gradient
+  example-gradient:
+    value: "#FF0000:#0000FF Red to blue gradient"
+    type: COLORED_TEXT
+
+  # Two-color gradient with & prefix
+  example-gradient-amp:
+    value: "&#FF5500:&#FFDD00 Orange to yellow"
+    type: COLORED_TEXT
+
+  # Multi-stop gradient (three or more colors)
+  example-gradient-multi:
+    value: "#FF0000:#00FF00:#0000FF Red green blue"
+    type: COLORED_TEXT
+
+  # Rainbow multi-stop gradient
+  example-rainbow:
+    value: "#FF0000:#FF7700:#FFFF00:#00FF00:#0000FF:#FF00FF Rainbow text"
+    type: COLORED_TEXT
+
+  # Gradient using other COLORED_TEXT placeholders as color sources
+  # PAPI resolves %mp_...% first, producing §x codes that are then used as gradient stops
+  example-color-red:
+    value: "&#FF0000"
+    type: COLORED_TEXT
+
+  example-color-blue:
+    value: "&#0000FF"
+    type: COLORED_TEXT
+
+  example-gradient-nested:
+    value: "%mp_example-color-red%:%mp_example-color-blue% Dynamic gradient"
+    type: COLORED_TEXT
+
+  # Gradient with decorations — decorations persist through each colored character
+  example-gradient-bold:
+    value: "#FF7201:#FFBD56 Bold gradient text"
+    type: COLORED_TEXT
+    bold: true
+
+  example-gradient-italic:
+    value: "#00FFCC:#0099FF Italic gradient text"
+    type: COLORED_TEXT
+    italic: true
+
+  # Color + decorations (no gradient)
+  example-colored-bold:
+    value: "&#FFE0B2Bold colored text"
+    type: COLORED_TEXT
+    bold: true
+    italic: true
+
+  # Gradient with argument — apply gradient to dynamic text
+  # Usage: %mp_example-gradient-args_MyServer%
+  example-gradient-args:
+    value: "#FF0000:#0000FF {0}"
+    type: COLORED_TEXT
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  RANDOM
+  #  Picks a random value from a list each time it is requested.
+  #  Values support all color formats.
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Basic random text
+  example-random:
+    values:
+      - "Option one"
+      - "Option two"
+      - "Option three"
+    type: RANDOM
+
+  # Random with colors
+  example-random-colored:
+    values:
+      - "&aGreen option"
+      - "&bAqua option"
+      - "&cRed option"
+      - "&eYellow option"
+    type: RANDOM
+
+  # Random with PAPI placeholders inside values
+  example-random-papi:
+    values:
+      - "Your balance is %vault_eco_balance%"
+      - "Your name is %player_name%"
+      - "Your world is %player_world%"
+    type: RANDOM
+
+  # Random with decorations (applied to whichever value is chosen)
+  example-random-bold:
+    values:
+      - "Bold option A"
+      - "Bold option B"
+    type: RANDOM
+    bold: true
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  MATH
+  #  Evaluates mathematical expressions. Supports PAPI placeholders as operands.
+  #
+  #  Operators:  + - * / % ^
+  #  Functions:  sqrt, log, sin, cos, tan, abs, round, ceil, floor, exp
+  #  Rounding:   HALF_UP, HALF_DOWN, FLOOR, CEILING, UP, DOWN
+  #  Precision:  number of decimal places in the result
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Simple arithmetic
+  example-math-basic:
+    value: "1 + 1"
+    type: MATH
+    rounding: HALF_UP
+    precision: 0
+
+  # With decimal precision
+  example-math-decimal:
+    value: "10 / 3"
+    type: MATH
+    rounding: HALF_UP
+    precision: 2
+
+  # Using a math function
+  example-math-sqrt:
+    value: "sqrt(144)"
+    type: MATH
+    rounding: HALF_UP
+    precision: 0
+
+  # With positional arguments
+  # Usage: %mp_example-math-args_10::5%  →  15
+  example-math-args:
+    value: "{0} + {1}"
+    type: MATH
+    rounding: HALF_UP
+    precision: 0
+
+  # Multiply args
+  # Usage: %mp_example-math-multiply_6::7%  →  42
+  example-math-multiply:
+    value: "{0} * {1}"
+    type: MATH
+    rounding: HALF_UP
+    precision: 0
+
+  # Using PAPI placeholders as values (requires Vault)
+  # example-math-vault:
+  #   value: "%vault_eco_balance% * 2"
+  #   type: MATH
+  #   rounding: HALF_UP
+  #   precision: 2
+
+  # Complex expression
+  # example-math-complex:
+  #   value: "(%vault_eco_balance% / 1000) * 100"
+  #   type: MATH
+  #   rounding: HALF_UP
+  #   precision: 1
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  REQUIREMENT
+  #  Returns different values based on conditions.
+  #  Multiple requirements are checked in order — first match wins.
+  #
+  #  Numeric operators:   >= <= = != > <
+  #  String operators:    string equals
+  #                       string equals ignorecase
+  #                       string contains
+  #                       string contains ignorecase
+  #
+  #  Structure:
+  #    value: "text if ALL requirements pass"
+  #    requirements:
+  #      <reqId>:
+  #        type: <operator>
+  #        input: <value or %placeholder%>
+  #        output: <value to compare against>
+  #        deny: "text if THIS requirement fails"
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Numeric comparison (requires Vault)
+  example-requirement-money:
+    value: "&#7CFC00You have enough money!"
+    type: REQUIREMENT
+    requirements:
+      hasMoney:
+        type: ">="
+        input: "%vault_eco_balance%"
+        output: "100"
+        deny: "&#FF3D00You need at least $100."
+
+  # String equality check
+  example-requirement-name:
+    value: "&#FFD700Welcome, admin!"
+    type: REQUIREMENT
+    requirements:
+      isAdmin:
+        type: "string equals ignorecase"
+        input: "%player_name%"
+        output: "Notch"
+        deny: "&#AAAAAA Welcome, player."
+
+  # String contains check
+  example-requirement-world:
+    value: "&#7CFC00You are in a survival world."
+    type: REQUIREMENT
+    requirements:
+      inSurvival:
+        type: "string contains ignorecase"
+        input: "%player_world%"
+        output: "survival"
+        deny: "&#FF5500You are not in a survival world."
+
+  # Multiple chained requirements (all must pass — first deny wins)
+  example-requirement-multi:
+    value: "&#7CFC00Rich VIP player!"
+    type: REQUIREMENT
+    requirements:
+      isVip:
+        type: "string equals ignorecase"
+        input: "%vault_group%"
+        output: "vip"
+        deny: "&#FF3D00Not a VIP."
+      hasMoney:
+        type: ">="
+        input: "%vault_eco_balance%"
+        output: "1000"
+        deny: "&#FF3D00VIP but not rich enough."
+
+  # Requirement with decorations
+  example-requirement-bold:
+    value: "ADMIN"
+    type: REQUIREMENT
+    bold: true
+    requirements:
+      isOp:
+        type: "string equals"
+        input: "%player_is_op%"
+        output: "yes"
+        deny: "PLAYER"
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  PROGRESS
+  #  Generates a visual progress bar.
+  #
+  #  With static values (from YML):
+  #    value:     current value (number or PAPI placeholder)
+  #    max-value: maximum value (number or PAPI placeholder)
+  #
+  #  With inline arguments (current_max):
+  #    %mp_<id>_50_100%   →  bar at 50%
+  #    %mp_<id>_75_200%   →  bar at 37.5%
+  #
+  #  Options:
+  #    length:          total character width of the bar (default 20)
+  #    fill-char:       character for the filled portion
+  #    empty-char:      character for the empty portion
+  #    fill-color:      color for filled chars (hex or legacy)
+  #    empty-color:     color for empty chars
+  #    show-percentage: append the % value after the bar (default false)
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Basic progress bar with static values
+  example-progress:
+    type: PROGRESS
+    value: "50"
+    max-value: "100"
+    length: 20
+    fill-char: "█"
+    empty-char: "░"
+    fill-color: "&#00FF00"
+    empty-color: "&#555555"
+    show-percentage: true
+
+  # Progress bar with percentage display
+  example-progress-pct:
+    type: PROGRESS
+    value: "30"
+    max-value: "100"
+    length: 15
+    fill-char: "■"
+    empty-char: "□"
+    fill-color: "&#FFD700"
+    empty-color: "&#444444"
+    show-percentage: true
+
+  # Progress bar using PAPI placeholders (requires Vault)
+  # example-progress-vault:
+  #   type: PROGRESS
+  #   value: "%vault_eco_balance%"
+  #   max-value: "10000"
+  #   length: 20
+  #   fill-char: "█"
+  #   empty-char: "░"
+  #   fill-color: "&#FFD700"
+  #   empty-color: "&#444444"
+  #   show-percentage: true
+
+  # Dynamic bar — use inline args to pass values at request time
+  # Usage: %mp_example-progress-dynamic_75_100%  →  bar at 75%
+  example-progress-dynamic:
+    type: PROGRESS
+    value: "0"
+    max-value: "100"
+    length: 20
+    fill-char: "█"
+    empty-char: "░"
+    fill-color: "&#00AAFF"
+    empty-color: "&#333333"
+    show-percentage: true
+
+  # Health-style bar (red)
+  example-progress-health:
+    type: PROGRESS
+    value: "80"
+    max-value: "100"
+    length: 10
+    fill-char: "❤"
+    empty-char: "❤"
+    fill-color: "&#FF4444"
+    empty-color: "&#441111"
+    show-percentage: false
+
+  # Progress bar with decorations
+  example-progress-bold:
+    type: PROGRESS
+    value: "60"
+    max-value: "100"
+    length: 15
+    fill-char: "█"
+    empty-char: "░"
+    fill-color: "&#7CFC00"
+    empty-color: "&#555555"
+    show-percentage: true
+    bold: true
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  ANIMATION
+  #  Generates animated color effects that update in real time.
+  #  Uses a single shared background task for all animations (no lag).
+  #
+  #  animation-mode options:
+  #    LEFT_TO_RIGHT  — color window slides from left to right
+  #    RIGHT_TO_LEFT  — color window slides from right to left
+  #    BOUNCE         — window bounces: left → right → left → ...
+  #    FULL_CYCLE     — entire text cycles through all colors in sync
+  #    WAVE           — continuous color wave flowing left to right
+  #
+  #  Options:
+  #    value:          text to animate
+  #    colors:         list of hex colors (minimum 2)
+  #    speed:          ticks between frames (1 tick = 50ms, 20 ticks = 1s)
+  #                    speed: 1  → 20fps (smoothest)
+  #                    speed: 2  → 10fps (recommended)
+  #                    speed: 5  → 4fps  (noticeable stepping)
+  #    window:         width of the color highlight in characters
+  #                    (only applies to LEFT_TO_RIGHT, RIGHT_TO_LEFT, BOUNCE)
+  #                    default: half the text length
+  #    animation-mode: one of the modes listed above
+  #
+  #  Decorations (bold, italic, etc.) are supported and persist
+  #  through each colored character correctly.
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Left to right — color window sweeps across
+  example-anim-ltr:
+    value: "Left To Right"
+    type: ANIMATION
+    colors:
+      - "#FF0000"
+      - "#FFFF00"
+      - "#FF0000"
+    speed: 2
+    window: 6
+    animation-mode: LEFT_TO_RIGHT
+
+  # Right to left — same but reversed direction
+  example-anim-rtl:
+    value: "Right To Left"
+    type: ANIMATION
+    colors:
+      - "#0000FF"
+      - "#00FFFF"
+    speed: 2
+    window: 6
+    animation-mode: RIGHT_TO_LEFT
+
+  # Bounce — window goes left→right→left in a loop
+  example-anim-bounce:
+    value: "Bounce Effect"
+    type: ANIMATION
+    colors:
+      - "#FF00FF"
+      - "#FFFFFF"
+      - "#00FFFF"
+    speed: 2
+    window: 5
+    animation-mode: BOUNCE
+
+  # Full cycle — the whole text changes color together
+  example-anim-cycle:
+    value: "Full Cycle"
+    type: ANIMATION
+    colors:
+      - "#FF0000"
+      - "#FF7700"
+      - "#FFFF00"
+      - "#00FF00"
+      - "#0000FF"
+      - "#FF00FF"
+    speed: 3
+    animation-mode: FULL_CYCLE
+
+  # Wave — continuous flowing color wave
+  example-anim-wave:
+    value: "Wave Effect"
+    type: ANIMATION
+    colors:
+      - "#FF0000"
+      - "#FFFF00"
+      - "#00FF00"
+      - "#00FFFF"
+      - "#0000FF"
+    speed: 1
+    window: 8
+    animation-mode: WAVE
+
+  # Multi-color bounce with more stops
+  example-anim-rainbow-bounce:
+    value: "MyServer"
+    type: ANIMATION
+    colors:
+      - "#FF0000"
+      - "#FF7700"
+      - "#FFFF00"
+      - "#00FF00"
+      - "#0000FF"
+    speed: 2
+    window: 4
+    animation-mode: BOUNCE
+
+  # Animation with bold decoration
+  example-anim-bold:
+    value: "Bold Animation"
+    type: ANIMATION
+    colors:
+      - "#FF5500"
+      - "#FFDD00"
+    speed: 2
+    window: 7
+    animation-mode: BOUNCE
+    bold: true
+
+  # Animation with italic + underline
+  example-anim-styled:
+    value: "Styled Text"
+    type: ANIMATION
+    colors:
+      - "#00FFCC"
+      - "#0099FF"
+    speed: 2
+    window: 6
+    animation-mode: WAVE
+    italic: true
+    underline: true
+
+  # Fast smooth wave (speed 1 = maximum smoothness)
+  example-anim-fast:
+    value: "Servidor Ejemplo"
+    type: ANIMATION
+    colors:
+      - "#FF0000"
+      - "#FF7700"
+      - "#FFFF00"
+    speed: 1
+    window: 8
+    animation-mode: WAVE
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  BUILT-IN CONVERTERS
+  #  These work as direct placeholders without any YML entry.
+  #  Listed here just for documentation — do NOT add them as placeholders.
+  #
+  #  %mp_roman_<number>%          Converts integer to Roman numerals
+  #    %mp_roman_1%    → I
+  #    %mp_roman_4%    → IV
+  #    %mp_roman_9%    → IX
+  #    %mp_roman_14%   → XIV
+  #    %mp_roman_2024% → MMXXIV
+  #    %mp_roman_3999% → MMMCMXCIX  (maximum)
+  #
+  #  %mp_smallcaps_<text>%        Converts text to small capital letters
+  #    %mp_smallcaps_hello%    → ʜᴇʟʟᴏ
+  #    %mp_smallcaps_myserver% → ᴍʏꜱᴇʀᴠᴇʀ
+  #
+  #  %mp_superscript_<text>%      Converts text to superscript characters
+  #    %mp_superscript_hello%  → ʰᵉˡˡᵒ
+  #    %mp_superscript_abc123% → ᵃᵇᶜ¹²³
+  #
+  #  %mp_circled_<text>%          Wraps each character in a circle
+  #    %mp_circled_hello%      → ⓗⓔⓛⓛⓞ
+  #    %mp_circled_abc%        → ⓐⓑⓒ
+  #
+  #  %mp_fullwidth_<text>%        Converts text to fullwidth characters
+  #    %mp_fullwidth_hello%    → ｈｅｌｌｏ
+  #    %mp_fullwidth_abc%      → ａｂｃ
+  #
+  #  Note: spaces in text use underscores in the placeholder
+  #    %mp_smallcaps_my server% → ᴍʏ ꜱᴇʀᴠᴇʀ
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Example of wrapping a built-in converter in a COLORED_TEXT placeholder
+  example-roman-colored:
+    value: "&#FFD700Season %mp_roman_4%"
+    type: COLORED_TEXT
+
+  example-smallcaps-gradient:
+    value: "#FF5500:#FFDD00 %mp_smallcaps_my server%"
+    type: COLORED_TEXT
+
+
+  # ══════════════════════════════════════════════════════════════════════════════
+  #  COMBINING FEATURES
+  #  Examples that combine multiple features together.
+  # ══════════════════════════════════════════════════════════════════════════════
+
+  # Gradient + argument: apply gradient to a dynamic name
+  # Usage: %mp_example-combo-name_Steve%  →  "Steve" in gradient
+  example-combo-name:
+    value: "#FF0000:#0000FF {0}"
+    type: COLORED_TEXT
+
+  # MATH result fed into a COLORED_TEXT via PAPI nesting
+  # example-combo-math-color:
+  #   value: "&#FFD700Score: %mp_example-math-basic%"
+  #   type: COLORED_TEXT
+
+  # Locked gradient — cannot be changed in-game
+  example-server-name:
+    value: "#FF5500:#FFDD00 MyServer"
+    type: COLORED_TEXT
+    bold: true
+    locked: true
+
+  # Progress bar + bold + custom chars
+  example-xp-bar:
+    type: PROGRESS
+    value: "0"
+    max-value: "100"
+    length: 10
+    fill-char: "⬛"
+    empty-char: "⬜"
+    fill-color: "&#7CFC00"
+    empty-color: "&#333333"
+    show-percentage: false
+    bold: false

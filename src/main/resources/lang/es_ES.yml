@@ -1,0 +1,19 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║           MyPlaceholder - Idioma: Español                ║
+# ╚══════════════════════════════════════════════════════════╝
+
+prefix: "&#BEFFDD&lMyPlaceholder&r &8| "
+
+command-messages:
+  not-found: "&#FF3D00Comando &f%command% &#FF3D00no encontrado."
+  no-permission: "&#FF3D00No tienes permiso para ejecutar este comando."
+  reload: "&#7CFC00Plugin recargado correctamente."
+  config-set: "&#7CFC00Placeholder &f%placeholder% &#7CFC00cambiado a &f%value%"
+  config-locked: "&#FF3D00El placeholder &f%placeholder% &#FF3D00está bloqueado y no se puede editar ingame."
+  parse-usage: "&#FF3D00Uso: /mp parse <jugador> <placeholder>"
+  parse-player-not-found: "&#FF3D00Jugador &f%player% &#FF3D00no encontrado."
+  parse-result: "&#7CFC00Resultado de &f%placeholder%&#7CFC00:"
+  error-log-header: "&#FF3D00&l[MyPlaceholder] Errores encontrados al iniciar:"
+  error-duplicate: "&#FF5500  ● ID duplicado: &f%id% &#FF5500(encontrado en &f%file1% &#FF5500y &f%file2%&#FF5500)"
+  error-invalid: "&#FF5500  ● Placeholder inválido &f%id% &#FF5500en &f%file%&#FF5500: %reason%"
+  error-none: "&#7CFC00No se encontraron errores en los archivos."

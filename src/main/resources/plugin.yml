@@ -1,0 +1,26 @@
+name: MyPlaceholder
+version: '${project.version}'
+main: dev.nutellim.myplaceholder.MyPlaceholder
+api-version: '1.13'
+author: hhitt, nutellim
+description: MyPlaceholder
+depend: [PlaceholderAPI]
+softdepend: [Vault]
+commands:
+  myplaceholder:
+    description: MyPlaceholder Command
+    permission: myplaceholder.command.myplaceholder
+    aliases: [mp, mypl]
+permissions:
+  myplaceholder.command.myplaceholder:
+    description: Access to /mp command
+    default: op
+  myplaceholder.command.myplaceholder.reload:
+    description: Reload the plugin
+    default: op
+  myplaceholder.command.myplaceholder.config:
+    description: Edit placeholder values in-game
+    default: op
+  myplaceholder.command.myplaceholder.parse:
+    description: Parse a placeholder for a player
+    default: op
